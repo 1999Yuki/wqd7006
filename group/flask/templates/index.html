@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+
+    <!-- Excel Upload Card -->
+    <div class="card mb-4">
+      <div class="card-header">
+        Batch Prediction via Excel Upload
+      </div>
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+          <div class="mb-3">
+            <input class="form-control" type="file" name="excel_file" accept=".xls,.xlsx" required>
+          </div>
+          <button type="submit" class="btn btn-success w-100">Upload and Predict</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Single Input Prediction Card -->
+    <div class="card">
+      <div class="card-header">
+        Breast Cancer Predictor (Single Input)
+      </div>
+      <div class="card-body">
+        <form method="post">
+          <div class="row g-3">
+            {% for feature in feature_names %}
+            <div class="col-md-6">
+              <label for="{{ feature }}" class="form-label">
+                {{ feature.replace('_',' ').title() }}
+              </label>
+              <input
+                type="number"
+                step="any"
+                class="form-control"
+                id="{{ feature }}"
+                name="{{ feature }}"
+                placeholder="Enter {{ feature.replace('_',' ').title() }}"
+                required>
+            </div>
+            {% endfor %}
+          </div>
+          <button type="submit" class="btn btn-primary w-100 mt-4">Predict</button>
+
+          <div class="text-center mt-3">
+            {% if result is not none %}
+              <span class="h5 fw-semibold">{{ result }}</span>
+            {% else %}
+              <span class="text-muted">Result will appear here</span>
+            {% endif %}
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Prediction Table -->
+    {% if predictions %}
+    <div class="card mt-4">
+      <div class="card-header">
+        Batch Prediction Results
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm m-0">
+            <thead>
+              <tr>
+                {% for name in feature_names %}
+                  <th>{{ name }}</th>
+                {% endfor %}
+                <th>Prediction</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row, pred in predictions %}
+              <tr>
+                {% for val in row %}
+                  <td>{{ val }}</td>
+                {% endfor %}
+                <td>{{ pred }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
