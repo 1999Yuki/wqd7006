@@ -38,6 +38,7 @@
                 id="{{ feature }}"
                 name="{{ feature }}"
                 placeholder="Enter {{ feature.replace('_',' ').title() }}"
+                value="{{ user_input[feature] }}"
                 required>
             </div>
             {% endfor %}
@@ -75,8 +76,8 @@
             <tbody>
               {% for row, pred in predictions %}
               <tr>
-                {% for val in row %}
-                  <td>{{ val }}</td>
+                {% for feature in feature_names %}
+                  <td>{{ row[feature] }}</td>
                 {% endfor %}
                 <td>{{ pred }}</td>
               </tr>
