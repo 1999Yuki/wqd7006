@@ -1,7 +1,8 @@
 flask
+gunicorn                 # 🚀 用于生产部署
 joblib
 numpy
 pandas
-openpyxl  # 用于读取 .xlsx 文件
+openpyxl                 # 用于读取 .xlsx 文件
 scikit-learn
 xgboost
