@@ -1,0 +1,7 @@
+flask
+joblib
+numpy
+pandas
+openpyxl  # 用于读取 .xlsx 文件
+scikit-learn
+xgboost
